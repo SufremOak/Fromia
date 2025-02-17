@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if command -v nix-shell &>/dev/null; then
+    nix-shell -p make python3 gcc
+else
+    echo "Nix is not installed"
+fi
+
+if command -v python3 &>/dev/null; then
+    python -m venv fromiadev
+    source fromiadev/bin/activate
+    pip install -r requirements.txt
+else
+    echo "Python is not installed"
+fi

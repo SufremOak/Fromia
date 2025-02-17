@@ -1,0 +1,16 @@
+# Ignore C object files and executables
+*.o
+*.out
+*.a
+*.so
+*.exe
+
+# Ignore Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore virtual environment directories
+venv/
+env/
+fromiadev/

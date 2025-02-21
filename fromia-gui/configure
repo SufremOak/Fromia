@@ -1,0 +1,67 @@
+#!/bin/bash
+
+if [ "$(uname)" == "Darwin" ]; then
+    echo "Detected MacOS. Installing dependencies via Brew."
+    brew update
+    brew install libx11 ncurses readline
+elif [ -f /etc/debian_version ]; then
+    echo "Detected Debian-based distro. Installing dependencies via apt-get."
+    sudo apt-get update
+    sudo apt-get install -y libx11-dev libncurses5-dev libreadline-dev
+elif [ -f /etc/arch-release ]; then
+    echo "Detected Arch Linux. Installing dependencies via pacman."
+    sudo pacman -Sy --noconfirm libx11 ncurses readline
+elif [ -f /etc/fedora-release ] || [ -f /etc/redhat-release ]; then
+    echo "Detected Fedora/RHEL. Installing dependencies via dnf."
+    sudo dnf install -y libX11-devel ncurses-devel readline-devel
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+    echo "Detected Windows. Please install dependencies (libX11, ncurses, readline) manually."
+else
+    echo "Unsupported OS."
+fi
+
+case "$OSTYPE" in
+    darwin*)
+        echo "Verifying dependencies via Brew on macOS..."
+        for pkg in libx11 ncurses readline; do
+            if brew ls --versions "$pkg" > /dev/null; then
+                echo "$pkg is installed."
+            else
+                echo "$pkg is NOT installed."
+            fi
+        done
+        ;;
+    linux*)
+        echo "Verifying dependencies on Linux..."
+        for lib in libX11 ncurses readline; do
+            if ldconfig -p | grep -qi "$lib"; then
+                echo "$lib is installed."
+            else
+                echo "$lib is NOT installed."
+            fi
+        done
+        ;;
+    msys*|cygwin*)
+        echo "For Windows, please verify that libX11, ncurses, and readline are installed manually."
+        ;;
+    *)
+        echo "OS verification not supported."
+        ;;
+esac
+
+echo "Checking if make and gcc are installed..."
+for cmd in make gcc; do
+    if command -v "$cmd" >/dev/null 2>&1; then
+        echo "$cmd is installed."
+    else
+        echo "$cmd is NOT installed."
+    fi
+done
+
+if [ -f Makefile ] || [ -f makefile ]; then
+    echo "Makefile is present."
+else
+    echo "No Makefile detected."
+fi
+
+echo "[Configure] Done."

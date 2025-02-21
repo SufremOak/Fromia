@@ -49,8 +49,8 @@ case "$OSTYPE" in
         ;;
 esac
 
-echo "Checking if make and gcc are installed..."
-for cmd in make gcc; do
+echo "Checking if make and g++/gcc are installed..."
+for cmd in make gcc g++; do
     if command -v "$cmd" >/dev/null 2>&1; then
         echo "$cmd is installed."
     else

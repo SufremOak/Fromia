@@ -7,5 +7,10 @@ Banner() {
 
 }
 
+Init() {
+  sudo -E ./install.sh
+  
+}
+
 Banner
 

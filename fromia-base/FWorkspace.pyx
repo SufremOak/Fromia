@@ -1,6 +1,6 @@
 # FromiaGraphicalRuntime.pyx
 # Import the GUI library and filesystem handling
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeView, QFileSystemModel, QVBoxLayout, QLabel, QDialog, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeView, QFileSystemModel, QVBoxLayout, QLabel, QDialog, QPushButton, QHBoxLayout, QWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QDir, Qt
 import subprocess
@@ -38,7 +38,7 @@ class FromiaWorkspace(QMainWindow):
         layout = QVBoxLayout()
         layout.addWidget(self.file_tree)
 
-        central_widget = QMainWindow()
+        central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 

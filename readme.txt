@@ -42,5 +42,5 @@ To build and install Fromia, follow these steps:
 3. Build fromia-base (Runtime):
    ```bash
     cd runtime
-    make
+    fromia-make Fromiamakefile
    ```
